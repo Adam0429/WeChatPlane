@@ -1,7 +1,9 @@
+package plane;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Timer;
 

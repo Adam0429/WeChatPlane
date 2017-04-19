@@ -1,3 +1,4 @@
+package plane;
 import java.awt.Image;
 
 public abstract class Flyer {
