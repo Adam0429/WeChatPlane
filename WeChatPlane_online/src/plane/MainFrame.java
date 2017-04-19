@@ -1,15 +1,20 @@
 package plane;
+
+
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Array;
+import java.security.KeyStore.TrustedCertificateEntry;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.security.auth.x500.X500Principal;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -100,19 +105,37 @@ public class MainFrame extends JPanel{
 			g.drawImage(img4, 0,0,340,620,this);
 		}
 	 }
-	
+	 public void outline(HeroPlane h,String d) throws Exception{
+		 switch(d){
+		 case"a":
+			 if(h.x<=0){
+				 throw new Exception();
+			 }
+		 case"d":
+			 if(h.x>=330){
+				 throw new Exception();
+			 }
+		 }
+		 
+	 }
 	 public class MyListener implements KeyListener{
+		
 		 public void keyPressed(KeyEvent e) {  
-	        if (e.getKeyCode() == KeyEvent.VK_DOWN) {  
+			 try{
+		     if (e.getKeyCode() == KeyEvent.VK_DOWN) {  
+	        	//outline(heroplane);
 	        	heroplane.y=heroplane.y+speed;
 	        } 
 	        else if (e.getKeyCode() == KeyEvent.VK_UP) {  
+	        	//outline(heroplane);
 	        	heroplane.y=heroplane.y-speed;
 	        } 
 	        else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  
+	        	outline(heroplane,"d");
 	        	heroplane.x=heroplane.x+speed;
 	        } 
 	        else if (e.getKeyCode() == KeyEvent.VK_LEFT) {  
+	        	outline(heroplane,"a");
 	        	heroplane.x=heroplane.x-speed;
 	        } 	
 	        else if (e.getKeyCode() == KeyEvent.VK_ENTER) {  
@@ -122,7 +145,14 @@ public class MainFrame extends JPanel{
 	        		state=RUNNING;
 	        	else
 	        		state=RUNNING;
-	        } 	
+	        }} 
+	        catch (Exception exception){
+	        	//exception.printStackTrace();
+	        	}
+	      
+			
+	        
+	
 	    }  
 	 
 		 

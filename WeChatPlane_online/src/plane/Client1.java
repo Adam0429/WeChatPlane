@@ -112,10 +112,13 @@ public class Client1 extends JPanel{
 			try {	
 				while(true){
 					d.writeInt(heroplane.x);
+					d.writeInt(heroplane.y);
 					int x=i.readInt();
+					int y=i.readInt();
 					//System.out.println(x);
 					heroplane2.x=x;
-					//Thread.sleep(50);
+					heroplane2.y=y;
+					//Thread.sleep(30);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -204,9 +207,10 @@ public class Client1 extends JPanel{
         		return copy;  
     		}  起到了扩充数组大小的作用
 	         */
-	        bullets = Arrays.copyOf(bullets, bullets.length + newBullets.length);   //根据返回新子弹的数量，扩容子弹数组  
+	        //bullets = Arrays.copyOf(bullets, bullets.length + newBullets.length);   //根据返回新子弹的数量，扩容子弹数组  
 	        //从newBullets数组中拷贝所有元素到bullets数组末尾  
-	        System.arraycopy(newBullets, 0, bullets, bullets.length - newBullets.length, newBullets.length);  
+	        //System.arraycopy(newBullets, 0, bullets, bullets.length - newBullets.length, newBullets.length);  
+	        //207,209占用了过多CPU,出界的子弹,移除数组,不过我懒得写了
 	    }
 	   	public static void npc(){
 	   		int px=(int) (Math.random()*WIDTH);

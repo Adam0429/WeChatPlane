@@ -58,8 +58,10 @@ public class Server{
 			try{
 			while(true){
 				d1.writeInt(i2.readInt());
+				d1.writeInt(i2.readInt());
 				d2.writeInt(i1.readInt());
-				//Thread.sleep(50);
+				d2.writeInt(i1.readInt());
+				Thread.sleep(30);
 			}
 				}
 			catch (Exception e) {
