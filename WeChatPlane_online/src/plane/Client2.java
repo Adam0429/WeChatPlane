@@ -25,7 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Client1 extends JPanel{
+public class Client2 extends JPanel{
 	public static final int speed=8;
     public static final int WIDTH = 350;  
     public static final int HEIGHT = 660;  				 //游戏界面固定大小
@@ -51,8 +51,8 @@ public class Client1 extends JPanel{
     private static int state;  
     //定义游戏状态的备选项常量：  
     static JFrame frame=new JFrame();
-    static Client1 m=new Client1();
-    static Client1.MyListener mk=m.new MyListener();			//为了给addkeylistener传参	
+    static Client2 m=new Client2();
+    static Client2.MyListener mk=m.new MyListener();			//为了给addkeylistener传参	
     Timer timer = new Timer();  
     static int i = 1;    										//子弹数,因为b.length已经给定
     public static void main(String[] Args){
@@ -64,7 +64,7 @@ public class Client1 extends JPanel{
         frame.addKeyListener(mk);
 		frame.setVisible(true);							//这个方法会自动执行JPanel子类里的paint方法
     }
-	public Client1(){
+	public Client2(){
 		/*写这段的时候，我想到用constructor 构造函数来直接定义一个主类给getcontentpane().add(),这样在
 		主函数里new的时候，直接就执行了代码.但这样会造成死循环。因为我在构造函数里new了一个对象，这个对象的
 		构造函数会一直new下一个对象，造成死循环，所以还是在主函数里new吧...
@@ -79,7 +79,7 @@ public class Client1 extends JPanel{
 		try {
 			Socket s=new Socket("localhost", 6666);
 			
-			Thread thread=new Thread(new client2(s));
+			Thread thread=new Thread(new client(s));
 			thread.start();
 		}
 		catch (Exception e) {
@@ -88,11 +88,11 @@ public class Client1 extends JPanel{
 	}
 	
 	
-	public class client2 implements Runnable{
+	public class client implements Runnable{
 		Socket s;
 		DataOutputStream d;
 		DataInputStream i;
-		public client2(Socket socket) {
+		public client(Socket socket) {
 			s=socket;	
 			try {
 				d=new DataOutputStream(s.getOutputStream());
@@ -138,8 +138,8 @@ public class Client1 extends JPanel{
 		}
 		if(state==RUNNING){
 			g.drawImage(img, 0,0,340,620,this);					//设置大小和位置	
-			g.drawImage(imgp1,heroplane.x,heroplane.y,this);
-			g.drawImage(imgp2,heroplane2.x,heroplane2.y,this);
+			g.drawImage(imgp2,heroplane.x,heroplane.y,this);
+			g.drawImage(imgp1,heroplane2.x,heroplane2.y,this);
 			for(int i = 0;i < flyers.length;i++){  
 				g.drawImage(flyers[i].image, flyers[i].x, flyers[i].y, null);  
 		}  

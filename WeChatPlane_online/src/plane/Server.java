@@ -21,6 +21,7 @@ public class Server{
 		go();
 	}
 	public void go(){
+		while(true){
 		try {
 			ServerSocket ss=new ServerSocket(6666);
 			Socket client1=ss.accept();
@@ -31,6 +32,7 @@ public class Server{
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
 		}
 	}
 	
