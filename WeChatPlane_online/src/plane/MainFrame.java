@@ -57,6 +57,8 @@ public class MainFrame extends JPanel{
     Timer timer = new Timer();  
     static int i = 1;    										//子弹数,因为b.length已经给定
     public static void main(String[] Args){
+    	Thread thread=new Thread(heroplane);
+    	thread.start();
     	frame.setTitle("微信打飞机");
 		frame.setSize(WIDTH, HEIGHT);
 		frame.getContentPane().add(m);
@@ -124,19 +126,19 @@ public class MainFrame extends JPanel{
 			 try{
 		     if (e.getKeyCode() == KeyEvent.VK_DOWN) {  
 	        	//outline(heroplane);
-	        	heroplane.y=heroplane.y+speed;
+	        	heroplane.down=true;
 	        } 
 	        else if (e.getKeyCode() == KeyEvent.VK_UP) {  
 	        	//outline(heroplane);
-	        	heroplane.y=heroplane.y-speed;
+	        	heroplane.up=true;
 	        } 
 	        else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  
-	        	outline(heroplane,"d");
-	        	heroplane.x=heroplane.x+speed;
+	        	//outline(heroplane,"d");
+	        	heroplane.right=true;
 	        } 
 	        else if (e.getKeyCode() == KeyEvent.VK_LEFT) {  
-	        	outline(heroplane,"a");
-	        	heroplane.x=heroplane.x-speed;
+	        	//outline(heroplane,"a");
+	        	heroplane.left=true;
 	        } 	
 	        else if (e.getKeyCode() == KeyEvent.VK_ENTER) {  
 	        	if(state==RUNNING)
@@ -161,6 +163,22 @@ public class MainFrame extends JPanel{
 		}  
 		
 		public void keyReleased(KeyEvent e) {  
+			     if (e.getKeyCode() == KeyEvent.VK_DOWN) {  
+		        	//outline(heroplane);
+		        	heroplane.down=false;
+		        } 
+		        else if (e.getKeyCode() == KeyEvent.VK_UP) {  
+		        	//outline(heroplane);
+		        	heroplane.up=false;
+		        } 
+		        else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  
+		        	//outline(heroplane,"d");
+		        	heroplane.right=false;
+		        } 
+		        else if (e.getKeyCode() == KeyEvent.VK_LEFT) {  
+		        	//outline(heroplane,"a");
+		        	heroplane.left=false;
+		        } 	
 		    //JOptionPane.showMessageDialog(null, "你松开了键");  
 		}  
 	 }	

@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.swing.JOptionPane;
 import javax.swing.text.AbstractDocument.BranchElement;
 
 public class Server{
@@ -21,19 +22,21 @@ public class Server{
 		go();
 	}
 	public void go(){
-		while(true){
+			
 		try {
 			ServerSocket ss=new ServerSocket(6666);
+			while(true){
 			Socket client1=ss.accept();
 			Socket client2=ss.accept();
 			Thread thread=new Thread(new HandleSession(client1, client2));
+			JOptionPane.showMessageDialog(null, "联机成功");
 			System.out.println("联机成功");
 			thread.start();
-			
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		}
+		
 	}
 	
 	public class HandleSession implements Runnable{

@@ -4,17 +4,57 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.security.spec.ECPrivateKeySpec;
 import java.util.Random;
 import java.util.Timer;
 
 import javax.imageio.ImageIO;
+import javax.net.ssl.SSLException;
 import javax.swing.ImageIcon;
 
-public class HeroPlane extends Flyer{
+public class HeroPlane extends Flyer implements Runnable{
+	public void run() {
+		while(true){
+			System.out.println(y);
+			if(left){
+				try {					//add these code to give some time to react,or the plane move too fast
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				x=x-1;
+			}
+			else if(right){
+				try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+				x=x+1;
+			}
+			else if(up){
+				try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+				y=y-1;
+			}
+			else if(down){
+				try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+				y=y+1;
+			}
+		}
+	}
 	ImageIcon iconhero1 = new ImageIcon("C:/Users/wfh/Desktop/飞机/hero1.jpg");
 	ImageIcon iconhero2 = new ImageIcon("C:/Users/wfh/Desktop/飞机/hero2.jpg");
 	Image imghero1= iconhero1.getImage();
 	Image imghero2= iconhero2.getImage();
+	public boolean left=false,right=false,down=false,up=false; 
 	boolean doubleFire; 			//双倍火力子弹数，看不出来
 	int life;
 	int score;

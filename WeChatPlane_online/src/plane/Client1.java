@@ -56,6 +56,8 @@ public class Client1 extends JPanel{
     Timer timer = new Timer();  
     static int i = 1;    										//子弹数,因为b.length已经给定
     public static void main(String[] Args){
+    	Thread thread=new Thread(heroplane);
+    	thread.start();
     	frame.setTitle("微信打飞机");
 		frame.setSize(WIDTH, HEIGHT);
 		frame.getContentPane().add(m);
@@ -70,17 +72,16 @@ public class Client1 extends JPanel{
 		构造函数会一直new下一个对象，造成死循环，所以还是在主函数里new吧...
 		*/
 		initial();
-		online();
-		
+		online(); 
 		Timer timer = new Timer();     								
 		timer.schedule(new MyTask(), 0, 20);							//用timertask解决每一段时间repaint一次
 	}
 	void online(){
 		try {
-			Socket s=new Socket("localhost", 6666);
-			
+			Socket s=new Socket("localhost", 6666);	
 			Thread thread=new Thread(new client2(s));
 			thread.start();
+			JOptionPane.showMessageDialog(null, "联机成功");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -159,18 +160,24 @@ public class Client1 extends JPanel{
 	 }
 	
 	 public class MyListener implements KeyListener{
+			
 		 public void keyPressed(KeyEvent e) {  
-	        if (e.getKeyCode() == KeyEvent.VK_DOWN) {  
-	        	heroplane.y=heroplane.y+speed;
+			 try{
+		     if (e.getKeyCode() == KeyEvent.VK_DOWN) {  
+	        	//outline(heroplane);
+	        	heroplane.down=true;
 	        } 
 	        else if (e.getKeyCode() == KeyEvent.VK_UP) {  
-	        	heroplane.y=heroplane.y-speed;
+	        	//outline(heroplane);
+	        	heroplane.up=true;
 	        } 
 	        else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  
-	        	heroplane.x=heroplane.x+speed;
+	        	//outline(heroplane,"d");
+	        	heroplane.right=true;
 	        } 
 	        else if (e.getKeyCode() == KeyEvent.VK_LEFT) {  
-	        	heroplane.x=heroplane.x-speed;
+	        	//outline(heroplane,"a");
+	        	heroplane.left=true;
 	        } 	
 	        else if (e.getKeyCode() == KeyEvent.VK_ENTER) {  
 	        	if(state==RUNNING)
@@ -179,7 +186,14 @@ public class Client1 extends JPanel{
 	        		state=RUNNING;
 	        	else
 	        		state=RUNNING;
-	        } 	
+	        }} 
+	        catch (Exception exception){
+	        	//exception.printStackTrace();
+	        	}
+	      
+			
+	        
+	
 	    }  
 	 
 		 
@@ -188,6 +202,22 @@ public class Client1 extends JPanel{
 		}  
 		
 		public void keyReleased(KeyEvent e) {  
+			     if (e.getKeyCode() == KeyEvent.VK_DOWN) {  
+		        	//outline(heroplane);
+		        	heroplane.down=false;
+		        } 
+		        else if (e.getKeyCode() == KeyEvent.VK_UP) {  
+		        	//outline(heroplane);
+		        	heroplane.up=false;
+		        } 
+		        else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  
+		        	//outline(heroplane,"d");
+		        	heroplane.right=false;
+		        } 
+		        else if (e.getKeyCode() == KeyEvent.VK_LEFT) {  
+		        	//outline(heroplane,"a");
+		        	heroplane.left=false;
+		        } 	
 		    //JOptionPane.showMessageDialog(null, "你松开了键");  
 		}  
 	 }	
@@ -201,9 +231,9 @@ public class Client1 extends JPanel{
         		return copy;  
     		}  起到了扩充数组大小的作用
 	         */
-	        //bullets = Arrays.copyOf(bullets, bullets.length + newBullets.length);   //根据返回新子弹的数量，扩容子弹数组  
+	        bullets = Arrays.copyOf(bullets, bullets.length + newBullets.length);   //根据返回新子弹的数量，扩容子弹数组  
 	        //从newBullets数组中拷贝所有元素到bullets数组末尾  
-	        //System.arraycopy(newBullets, 0, bullets, bullets.length - newBullets.length, newBullets.length);  
+	        System.arraycopy(newBullets, 0, bullets, bullets.length - newBullets.length, newBullets.length);  
 	        //207,209占用了过多CPU,出界的子弹,移除数组,不过我懒得写了
 	    }
 	   	public static void npc(){
